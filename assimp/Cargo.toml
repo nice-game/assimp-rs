@@ -1,0 +1,8 @@
+[package]
+name = "assimp"
+version = "0.1.0"
+authors = ["Icy Defiance <icydefiance@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+assimp-sys = { path = "../assimp-sys" }
