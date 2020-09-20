@@ -11,7 +11,7 @@ fn main() {
 		.define("INJECT_DEBUG_POSTFIX", "OFF")
 		.define("ASSIMP_INSTALL_PDB", "OFF")
 		// .define("CMAKE_SUPPRESS_DEVELOPER_WARNINGS", "ON")
-		// .define("LIBRARY_SUFFIX", "")
+		.define("LIBRARY_SUFFIX", "")
 		.build();
 	let debug_postfix = if var("DEBUG").unwrap() == "true" { "d" } else { "" };
 	println!("cargo:rustc-link-search=native={}", assimp_dir.join("lib").display());
