@@ -1,7 +1,8 @@
 macro_rules! define_type {
     // Reference type
     ($(#[$type_attr:meta])* struct $name:ident(&$raw:ty)) => (
-        $(#[$type_attr])*
+		$(#[$type_attr])*
+		#[repr(C)]
         pub struct $name<'a>(&'a $raw);
 
         #[doc(hidden)]
