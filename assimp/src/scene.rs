@@ -1,7 +1,8 @@
 mod mesh;
 
+pub use mesh::*;
+
 use assimp_sys::*;
-pub use mesh::Mesh;
 use std::slice;
 
 define_type! {

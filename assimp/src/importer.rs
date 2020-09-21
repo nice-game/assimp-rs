@@ -17,7 +17,7 @@ impl Importer {
 		Self { property_store, flags }
 	}
 
-	pub fn read_file<'a>(&self, file: &str) -> Result<Scene, &str> {
+	pub fn read_file(&self, file: &str) -> Result<Scene, &str> {
 		let file = CString::new(file).unwrap();
 		let scene =
 			unsafe { aiImportFileExWithProperties(file.as_ptr(), self.flags as _, null_mut(), self.property_store) };

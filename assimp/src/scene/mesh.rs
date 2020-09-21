@@ -29,4 +29,17 @@ impl<'a> Mesh<'a> {
 			}
 		})
 	}
+
+	pub fn faces(&self) -> &[Face] {
+		unsafe { slice::from_raw_parts(self.mFaces as _, self.mNumFaces as _) }
+	}
+}
+
+define_type! {
+	struct Face(&aiFace)
+}
+impl<'a> Face<'a> {
+	pub fn indices(&self) -> &[u32] {
+		unsafe { slice::from_raw_parts(self.mIndices as _, self.mNumIndices as _) }
+	}
 }
