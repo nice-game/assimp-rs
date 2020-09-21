@@ -2,21 +2,23 @@ use bindgen::CargoCallbacks;
 use std::{env::var, path::PathBuf};
 
 fn main() {
-	let no_export = if cfg!(feature = "export") { "OFF" } else { "ON" };
+	// let no_export = if cfg!(feature = "export") { "OFF" } else { "ON" };
 	let assimp_dir = cmake::Config::new("assimp")
 		.define("BUILD_SHARED_LIBS", "OFF")
-		.define("ASSIMP_NO_EXPORT", no_export)
+		// .define("ASSIMP_NO_EXPORT", no_export)
 		.define("ASSIMP_BUILD_ASSIMP_TOOLS", "OFF")
 		.define("ASSIMP_BUILD_TESTS", "OFF")
 		.define("INJECT_DEBUG_POSTFIX", "OFF")
 		.define("ASSIMP_INSTALL_PDB", "OFF")
-		// .define("CMAKE_SUPPRESS_DEVELOPER_WARNINGS", "ON")
+		.define("CMAKE_SUPPRESS_DEVELOPER_WARNINGS", "ON")
 		.define("LIBRARY_SUFFIX", "")
+		.define("CMAKE_CXX_FLAGS_DEBUG", "/EHsc")
+		.uses_cxx11()
 		.build();
-	// let debug_postfix = if var("DEBUG").unwrap() == "true" { "d" } else { "" };
+	let debug_postfix = if var("DEBUG").unwrap() == "true" { "d" } else { "" };
 	println!("cargo:rustc-link-search=native={}", assimp_dir.join("lib").display());
-	println!("cargo:rustc-link-lib=static=assimp");
-	println!("cargo:rustc-link-lib=static=IrrXML");
+	println!("cargo:rustc-link-lib=static=assimp{}", debug_postfix);
+	println!("cargo:rustc-link-lib=static=IrrXML{}", debug_postfix);
 
 	println!("cargo:rerun-if-changed=wrapper.h");
 	bindgen::Builder::default()
