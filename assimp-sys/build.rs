@@ -13,10 +13,10 @@ fn main() {
 		// .define("CMAKE_SUPPRESS_DEVELOPER_WARNINGS", "ON")
 		.define("LIBRARY_SUFFIX", "")
 		.build();
-	let debug_postfix = if var("DEBUG").unwrap() == "true" { "d" } else { "" };
+	// let debug_postfix = if var("DEBUG").unwrap() == "true" { "d" } else { "" };
 	println!("cargo:rustc-link-search=native={}", assimp_dir.join("lib").display());
-	println!("cargo:rustc-link-lib=static=assimp{}", debug_postfix);
-	println!("cargo:rustc-link-lib=static=IrrXML{}", debug_postfix);
+	println!("cargo:rustc-link-lib=static=assimp");
+	println!("cargo:rustc-link-lib=static=IrrXML");
 
 	println!("cargo:rerun-if-changed=wrapper.h");
 	bindgen::Builder::default()
